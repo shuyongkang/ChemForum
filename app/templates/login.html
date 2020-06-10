@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block login_class %}
+    active
+{% endblock %}
+{% block title %}
+    登录
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/input_form.css">
+{% endblock %}
+{% block content %}
+    <div class="user_content">
+        <div class="user_topic_title">
+            <h1>登录</h1>
+        </div>
+        <div class="login_form">
+            <form method="post">
+            <span style="font-size:20px; color: red">
+                {% for item in get_flashed_messages() %}
+                    {{ item }}
+                {% endfor %}
+            </span>
+                <div class="form-group">
+                    {#利用label for实现：点击标签，强调输入框#}
+                    <label for="电子邮箱">电子邮箱</label>
+                    <input type="email" class="form-control" name="email" id="电子邮箱" placeholder="email address">
+                </div>
+                <div class="form-group">
+                    <label for="密码">密码</label>
+                    <input type="password" class="form-control" name="password" id="密码" placeholder="password">
+                </div>
+                <div class="user_submit_btn">
+                    <button type="submit" class="btn btn-default">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

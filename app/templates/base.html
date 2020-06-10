@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+        <script src="/static/3rdparty/bootstrap/jquery.min.js"></script>
+        <script src="/static/3rdparty/bootstrap/bootstrap.min.js"></script>
+        <link href="/static/3rdparty/bootstrap/bootstrap.min.css" rel="stylesheet">
+        {% block css %}
+        {% endblock %}
+    </head>
+    <body>
+        {#用bootstrap管理全局样式，代码改自 https://v3.bootcss.com/components/#navbar #}
+        <div class="navigation_bar">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="{% block index_class %}{% endblock %}"><a
+                                    href="{{ url_for('index.index') }}">首页<span class="sr-only">(current)</span></a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if email %}
+                                <li class=""><a href="{{ url_for('logout.logout') }}">注销</a></li>
+                                <li class="{% block post_issue_class %}{% endblock %}"><a
+                                        href="{{ url_for('post_issue.post_issue') }}">提问</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-haspopup="true" aria-expanded="false">{{ username }} <span
+                                            class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{ url_for('person.person') }}">个人主页</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{{ url_for('list_issue.list_issue') }}">所有问题</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="{% block register_class %}{% endblock %}"><a
+                                        href="{{ url_for('register.register') }}">注册</a></li>
+                                <li class="{% block login_class %} {% endblock %}"><a
+                                        href="{{ url_for('login.login') }}">登录</a></li>
+                            {% endif %}
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+        <div class="content" style="padding: 0; margin: 0;">
+            {% block content %}
+            {% endblock %}
+        </div>
+        {% block js %}
+        {% endblock %}
+    </body>
+</html>

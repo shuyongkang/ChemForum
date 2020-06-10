@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{#设置着重标记指示当前在哪个功能页面#}
+{% block index_class %}
+    active
+{% endblock %}
+{% block title %}
+    首页
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/index.css">
+{% endblock %}
+{% block content %}
+    <div class="index_title">
+        <h1>有机化学课程论坛</h1>
+    </div>
+{% endblock %}

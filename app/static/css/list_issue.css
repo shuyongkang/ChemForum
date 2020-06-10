@@ -1,0 +1,20 @@
+.list_title {
+    text-align: center;
+}
+
+.sub_info {
+    text-align: right;
+}
+
+.issue_form {
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.issue_link{
+    color: #0000cc;
+    max-height: 100px;
+}
+
+.page_content {
+    margin: 5%;
+}

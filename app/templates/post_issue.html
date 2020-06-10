@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{#设置激活着重#}
+{% block post_issue_class %}
+    active
+{% endblock %}
+{% block title %}
+    问题编辑
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/post_issue.css">
+{% endblock %}
+{% block content %}
+    <table class="input_area">
+        <tr class="title_group">
+            <td class="editor_title">
+                <h2>问题编辑</h2>
+            </td>
+            <td class="canvas_title">
+                <h2>绘图区</h2>
+            </td>
+        </tr>
+        <tr>
+            <td class="post_issue_group">
+                <form class="post_issue_form" method="post">
+                <span style=" font-size:20px;color: red">
+                    {% for item in get_flashed_messages() %}
+                        {{ item }}
+                    {% endfor %}
+                </span>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" id="issue_title" placeholder="请输入问题的关键描述">
+                    </div>
+                    <div class="main_editor">
+                        <script id="main_editor" type="text/plain">
+                        </script>
+                    </div>
+                    <div id="submit_btn">
+                        <button type="submit" class="btn btn-default">发布问题</button>
+                    </div>
+                </form>
+            </td>
+            <td class="canvas_group">
+                <canvas id="canvasInput" class="board"></canvas>
+                <table class="canvas_btn">
+                    <tr>
+                        <td>
+                            <div id="add_btn">
+                                <button onclick="load2editor()" type="submit" id="add_btn" class="btn btn-default">
+                                    载入
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="ocr_btn">
+                                <button onclick="recognize()" id="real_ocr_btn" class="btn btn-default">
+                                    识别
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="cls_btn">
+                                <button onclick="cls()" id="real_cls_btn" class="btn btn-default">
+                                    清空
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div id="file_btn" class="btn btn-default btn-sm">
+                                <input type="file" id="img_file"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+{% block js %}
+    <script src="/static/3rdparty/ueditor/ueditor.config.js"></script>
+    <script src="/static/3rdparty/ueditor/ueditor.all.min.js"></script>
+    <script src="/static/3rdparty/tfjs/tf.min.js"></script>
+    <script src="/static/3rdparty/smiles-drawer/smiles-drawer.min.js"></script>
+    <script src="/static/js/cocr.js"></script>
+    <script src="/static/js/post_issue.js"></script>
+{% endblock %}

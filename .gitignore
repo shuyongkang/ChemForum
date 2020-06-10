@@ -1,3 +1,10 @@
+# IDE config
+.idea/
+.vscode/
+
+# NO PPT
+*.pptx
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

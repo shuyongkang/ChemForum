@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <title>测试目标检测模型</title>
+        <script src="../3rdparty/tfjs/tf.min.js"></script>
+        <script src="./cocr.js"></script>
+    </head>
+    <body>
+        <input type="file" id="file"/>
+        <p>输入：</p>
+        <canvas id="canvasInput"></canvas>
+        <p>运行：</p>
+        <input type="button" value="模型推理" onclick="test()"/>
+        <p>输出：</p>
+        <canvas id="canvasOutput"></canvas>
+        <script type="text/javascript">
+            let img = new Image();
+            img.onload = function () {
+                // 模拟canvas环境
+                canvas = document.getElementById('canvasInput');
+                canvas.width = this.width;
+                canvas.height = this.height;
+                [canvas.offsetWidth, canvas.offsetHeight] = [canvas.width, canvas.height];
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
+            }
+            document.querySelector('#file').onchange = function () {
+                if (this.files.length) {
+                    let file = this.files[0];
+                    let reader = new FileReader();
+                    reader.onload = function () {
+                        img.src = this.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            function drawBoxes(boxes, canvasSrc = 'canvasInput', canvasDst = 'canvasOutput') {
+                let cin, cout;
+                if (typeof canvasSrc === 'string' || canvasSrc instanceof String) {
+                    cin = document.getElementById(canvasSrc);
+                } else {
+                    cin = canvasSrc;
+                }
+                if (typeof canvasDst === 'string' || canvasDst instanceof String) {
+                    cout = document.getElementById(canvasDst);
+                } else {
+                    cout = canvasDst;
+                }
+                cout.width = cin.width;
+                cout.height = cin.height;
+                let ctx = cout.getContext("2d");
+                ctx.drawImage(img, 0, 0, cout.width, cout.height);
+                ctx.font = 'bold 15px Arial';
+                let arr = [0, 50, 100, 150, 200, 250, 255, 10, 80, 123, 182, 109];
+                for (let ii = 0; ii < boxes.length; ii++) {
+                    let e = boxes[ii];
+                    let i = e.id;
+                    ctx.strokeStyle = 'rgb(' + (255 - arr[i]) + ',' + (100 - arr[i]) + ',' + (arr[i]) + ')';
+                    ctx.beginPath();
+                    ctx.fillText(ii, e.getCent()[0], e.getCent()[1], 30);
+                    if (e.isBond()) {
+                        ctx.arc(e.startX, e.startY, 4, 0, 180);
+                        ctx.fillStyle = 'black';
+                        ctx.fill();
+                        ctx.stroke();
+                    }
+                    ctx.lineWidth = 1;
+                    ctx.rect(e.startX, e.startY, e.endX - e.startX, e.endY - e.startY);
+                    ctx.stroke();
+                }
+            }
+
+            async function test() {
+                predict('canvasInput', './model.json').then(
+                    result => drawBoxes(result, 'canvasInput', 'canvasOutput')
+                );
+            }
+        </script>
+    </body>
+</html>

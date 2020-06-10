@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block register_class %}
+    active
+{% endblock %}
+{% block title %}
+    注册
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/input_form.css">
+{% endblock %}
+{% block content %}
+    <div class="user_content">
+        <div class="user_topic_title">
+            <h1>注册</h1>
+        </div>
+        <div id="register_form">
+            <form method="post">
+            <span style="font-size:20px; color: red">
+                {% for item in get_flashed_messages() %}
+                    {{ item }}
+                {% endfor %}
+            </span>
+                <div class="form-group">
+                    <label for="电子邮箱">电子邮箱</label>
+                    <input type="email" class="form-control" name="email"
+                           id="电子邮箱" placeholder="email address">
+                </div>
+                <div class="form-group">
+                    <label for="用户名">用户名</label>
+                    <input type="text" class="form-control" name="username"
+                           id="用户名" placeholder="username">
+                </div>
+                <div class="form-group">
+                    <label for="第一次密码输入">密码</label>
+                    <input type="password" class="form-control" name="password_1"
+                           id="第一次密码输入" placeholder="password">
+                </div>
+                <div class="form-group">
+                    <label for="第二次密码输入">确认密码</label>
+                    <input type="password" class="form-control" name="password_2"
+                           id="第二次密码输入" placeholder="confirm your password">
+                </div>
+                <div class="user_submit_btn">
+                    <button type="submit" class="btn btn-default">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

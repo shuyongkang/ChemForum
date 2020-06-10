@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+    所有问题
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/list_issue.css">
+{% endblock %}
+{% block content %}
+    <div class="page_content">
+        <div class="list_title">
+            <h2>问题列表</h2>
+        </div>
+        <ul>
+            {% for issue in issue_detail %}
+                <li>
+                    <div class="issue_form">
+                        <h4>
+                            <a href="{{ url_for('view_issue.view_issue',ino = issue[0]) }}" class="issue_link">
+                                {{ issue[2] }}{#标题#}
+                            </a>
+                        </h4>
+                        <article>
+                            {{ issue[4]|safe }}{#内容#}
+                        </article>
+                        <p class="sub_info">
+                            <span>发布时间：{{ issue[3] }}</span>
+                        </p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

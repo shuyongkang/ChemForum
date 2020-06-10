@@ -1,0 +1,23 @@
+.issue_view {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.issue_title {
+    min-height: 30px;
+}
+
+.issue_content {
+    border-bottom: 1px solid #aaaaaa;
+    margin-bottom: 1%;
+}
+
+.issue_list_class {
+    margin-top: 1%;
+    margin-left: 0;
+    padding: 0;
+}
+
+.sub_info {
+    text-align: right;
+}

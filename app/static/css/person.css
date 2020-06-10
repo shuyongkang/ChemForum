@@ -1,0 +1,21 @@
+.user_content {
+    margin:0 auto;
+}
+#user_info_title {
+    text-align: center;
+    margin:0 auto;
+}
+
+.user_info {
+    margin-left: 32%;
+    /*margin:0 auto;*/
+}
+
+.user_info_td {
+    width: 200px;
+}
+
+
+.user_info_tr {
+    height: 50px;
+}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ user_info['username'] }}的主页
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/person.css">
+{% endblock %}
+{% block content %}
+    <input type="file" id="btn_file" style="display:none">
+    <canvas id="canvasInput" style="display:none"></canvas>
+    <div class="user_info_content">
+        <table id="user_info_title">
+            <td class="user_info_td">
+                {% if user_info['profile_photo'] == "default" %}
+                    <img src="/static/img/default.png" id="pho" onclick="change_profile_photo()">
+                {% else %}
+                    <img src="{{ user_info['profile_photo'] }}" id="pho" onclick="change_profile_photo()">
+                {% endif %}
+            </td>
+            <td class="user_info_td">
+                <h2>{{ user_info['username'] }}</h2>
+            </td>
+        </table>
+        <div class="user_info">
+            <table>
+                <tr class="user_info_tr">
+                    <td class="user_info_td">
+                        注册邮箱:
+                    </td>
+                    <td class="user_info_td">
+                        {{ user_info['email'] }}
+                    </td>
+                </tr>
+                <tr class="user_info_tr">
+                    <td class="user_info_td">
+                        用户名：
+                    </td>
+                    <td class="user_info_td" id="un">
+                        {{ user_info['username'] }}
+                    </td>
+                    <td class="user_info_td">
+                        <button onclick="change_username()" class="btn btn-sm">修改</button>
+                    </td>
+                </tr>
+                <tr class="user_info_tr">
+                    <td class="user_info_td">
+                        个性签名：
+                    </td>
+                    <td class="user_info_td" id="sig">
+                        {{ user_info['signature'] }}
+                    </td>
+                    <td class="user_info_td">
+                        <button onclick="change_signature()" class="btn btn-sm">修改</button>
+                    </td>
+                </tr>
+                <tr class="user_info_tr">
+                    <td class="user_info_td">
+                        注册时间：
+                    </td>
+                    <td class="user_info_td">
+                        {{ user_info['create_time'] }}
+                    </td>
+                </tr>
+                <tr class="user_info_tr">
+                    <td class="user_info_td">
+                        最近登录：
+                    </td>
+                    <td class="user_info_td">
+                        {{ user_info['last_login_time'] }}
+                    </td>
+                </tr>
+                <tr class="user_info_tr">
+                    <td class="user_info_td">
+                        用户类型：
+                    </td>
+                    <td class="user_info_td">
+                        {% if user_info['level'] == 1 %}
+                            普通用户
+                        {% else %}
+                            管理员
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="/static/js/person.js"></script>
+{% endblock %}
